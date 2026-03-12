@@ -1,0 +1,21 @@
+# environments/sandbox/terraform.tfvars.example
+#
+# Copy this file to terraform.tfvars and fill in your real values.
+#   cp terraform.tfvars.example terraform.tfvars
+#
+# terraform.tfvars is in .gitignore and must never be committed.
+# terraform.tfvars.example is safe to commit — it contains no real values.
+
+subscription_id = "<your-personal-subscription-id>"
+tenant_id       = "<your-personal-tenant-id>"
+
+environment    = "sandbox"
+location       = "eastus"
+location_short = "eus"
+project        = "az-home-infra"
+
+tags = {
+  Owner      = "<your-name>"
+  CostCenter = "sandbox"
+  ManagedBy  = "terraform"
+}
