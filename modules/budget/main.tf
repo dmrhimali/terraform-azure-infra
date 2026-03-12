@@ -2,7 +2,7 @@
 
 resource "azurerm_consumption_budget_subscription" "budget" {
   name            = "budget-${var.environment}"
-  subscription_id = var.subscription_id
+  subscription_id = "/subscriptions/${var.subscription_id}"
   amount          = var.amount
   time_grain      = "Monthly"
 

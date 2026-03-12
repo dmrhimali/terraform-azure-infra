@@ -107,3 +107,90 @@ terraform destroy
 - `terraform.tfvars` is in `.gitignore` — never commit it
 - State is stored remotely in Azure Blob Storage
 - To add a new environment: copy `environments/sandbox` → update `terraform.tfvars` and the backend `key` in `providers.tf`
+
+## Troubleshoot
+
+### if `terraform plan` is hung with errors in registering providers :
+This is a temporary Azure-side conflict — not a code problem. Just retry:
+
+```powershell
+tfp
+```
+
+Azure was processing multiple resource provider registrations at the same time and hit a conflict. It usually resolves on the next attempt.
+
+If it keeps failing, add this to `providers.tf` to stop Terraform trying to auto-register providers:
+
+**`environments/sandbox/providers.tf`** — add to provider block:
+```hcl
+provider "azurerm" {
+  resource_provider_registrations = "none"   # ADDED: disable auto-registration
+  
+  features { ... }
+  ...
+}
+```
+
+Then manually register only what you need:
+```powershell
+az provider register --namespace Microsoft.MachineLearningServices
+az provider register --namespace Microsoft.CognitiveServices
+az provider register --namespace Microsoft.KeyVault
+az provider register --namespace Microsoft.Storage
+```
+
+### Error: Error acquiring the state lock
+
+```sh
+ Error: Error acquiring the state lock
+│
+│ Error message: state blob is already locked
+│ Lock Info:
+│   ID:        e188c142-e279-00d9-8891-08b955e67567
+│   Path:      tfstate/sandbox.terraform.tfstate
+│   Operation: OperationTypePlan
+│   Who:       AzureAD\RasanjaleeDissanayak@WDT-Rasanjalee
+│   Version:   1.14.6
+│   Created:   2026-03-12 13:40:42.6510015 +0000 UTC
+│   Info:
+│
+```
+The state is locked from a previous failed plan. Force unlock it:
+
+```powershell
+terraform force-unlock e188c142-e279-00d9-8891-08b955e67567
+```
+
+Type `yes` when prompted. Then retry:
+
+```powershell
+tfp
+```
+
+The lock was left behind when the earlier plan failed — this is safe to unlock since you're the only one using this state.
+
+# after tf destroy cannot tf apply
+
+```hcl
+resource "azurerm_key_vault" "key_vault" {
+  name                       = "kv-${var.name}"
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  sku_name                   = "standard"
+  purge_protection_enabled   = var.key_vault_purge_protection
+  soft_delete_retention_days = var.key_vault_soft_delete_days
+  tags                       = var.tags
+}
+```
+
+If you terraform destroy and recreate within 7 days, the Key Vault name `kv-az-infra-sandbox-eus` will conflict with the soft-deleted one. 
+
+Fix:
+
+```powershell
+# After destroy, purge the soft-deleted vault before recreating
+az keyvault purge --name kv-az-infra-sandbox-eus --location eastus
+```
+
+Then `tfa` will work cleanly.
