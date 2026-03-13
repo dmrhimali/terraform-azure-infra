@@ -88,11 +88,25 @@ terraform init
 ## Usage
 
 ```powershell
+#login to azure
+az logout
+    az cache purge
+    az account clear
+    az login --tenant <tenanat-id>
+    az account show --query "{subscription:name, user:user.name, tenant:tenantId}" -o table
+
+# make sure providers subscription id and tenanat id matches above az account equivalents 
+
 # Preview changes
 terraform plan
+# plan only one resource:
+terraform plan "-target=module.resource_group"
+
 
 # Apply changes
 terraform apply
+# apply only one resource:
+terraform apply "-target=module.resource_group"
 
 # Destroy all resources
 terraform destroy
@@ -102,11 +116,41 @@ terraform destroy
 
 ---
 
+## Run model deployed with input using python.
+Go to src directory and follow instructions in INSTRUCTIONS.md
+
 ## Notes
 
 - `terraform.tfvars` is in `.gitignore` — never commit it
 - State is stored remotely in Azure Blob Storage
 - To add a new environment: copy `environments/sandbox` → update `terraform.tfvars` and the backend `key` in `providers.tf`
+
+## Terraform shortcuts
+
+```bash
+# in powershell open notepad
+notepad $PROFILE
+
+#add following and save
+function tf  { terraform $args }
+function tfi { terraform init }
+function tfp { terraform plan $args }
+function tfa { terraform apply $args }
+function tfd { terraform destroy $args }
+function tfaa { terraform apply -auto-approve }
+function tfv { terraform validate }
+function tff { terraform fmt -recursive }
+function tfo { terraform output }
+function tfs { terraform state list }
+
+# resource $PROFILE
+ . $PROFILE
+```
+
+Usage:
+```sh
+tfp "-target=module.resource_group"
+```
 
 ## Troubleshoot
 
