@@ -74,6 +74,10 @@ resource "azurerm_ai_foundry_project" "project" {
   location           = azurerm_ai_foundry.hub.location
   ai_services_hub_id = azurerm_ai_foundry.hub.id
   tags               = var.tags
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 # deploys a model into AI Services so it's available in playground and via API
@@ -84,11 +88,11 @@ resource "azurerm_cognitive_deployment" "gpt4o" {
   model {
     format  = "OpenAI"
     name    = "gpt-4o-mini"
-    version = "2024-11-20"
+    version = "2024-07-18"
   }
 
   sku {
-    name     = "GlobalStandard"
-    capacity = 10  # tokens per minute in thousands (10k TPM)
+    name     = "Standard"
+    capacity = 1 # 1k TPM — lowest possible
   }
 }

@@ -27,3 +27,23 @@ terraform.rc
 # OS
 .DS_Store
 Thumbs.db
+
+## Python
+__pycache__/
+*.py[cod]
+*$py.class
+## Virtual environment
+env/
+venv/
+ENV/
+.venv/
+.env*
+.env
+*.env
+!*.env.example
+
+## PyInstaller
+*.spec
+dist/
+build/
+
