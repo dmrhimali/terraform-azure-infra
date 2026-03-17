@@ -81,18 +81,18 @@ resource "azurerm_ai_foundry_project" "project" {
 }
 
 # deploys a model into AI Services so it's available in playground and via API
-resource "azurerm_cognitive_deployment" "gpt4o" {
-  name                 = "gpt-4o-mini"
-  cognitive_account_id = azurerm_ai_services.ai_services.id
+# resource "azurerm_cognitive_deployment" "gpt4o" {
+#   name                 = "gpt-4o-mini"
+#   cognitive_account_id = azurerm_ai_services.ai_services.id
 
-  model {
-    format  = "OpenAI"
-    name    = "gpt-4o-mini"
-    version = "2024-07-18"
-  }
+#   model {
+#     format  = "OpenAI"
+#     name    = "gpt-4o-mini"
+#     version = "2024-07-18"
+#   }
 
-  sku {
-    name     = "Standard"
-    capacity = 1 # 1k TPM — lowest possible
-  }
-}
+#   sku {
+#     name     = "Standard"
+#     capacity = 1 # 1k TPM — lowest possible
+#   }
+# }

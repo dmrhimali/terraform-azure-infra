@@ -1,0 +1,68 @@
+import os
+import base64
+from openai import AzureOpenAI
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+      
+endpoint = os.getenv("ENDPOINT_URL", "https://eastus.api.cognitive.microsoft.com/")
+deployment = os.getenv("DEPLOYMENT_NAME", "o4-mini")
+subscription_key = os.getenv("AZURE_OPENAI_API_KEY", "egS9RgFYm6UXGVDn1nGfLHgO2SEFIkSJCQpjEujRNWZvgSTZzadMJQQJ99CCACYeBjFXJ3w3AAAAACOG7wo6")
+
+# Initialize Azure OpenAI client with key-based authentication
+client = AzureOpenAI(
+    azure_endpoint=endpoint,
+    api_key=subscription_key,
+    api_version="2025-01-01-preview",
+)
+
+chat_prompt = [
+    {
+        "role": "system",
+        "content": [
+            {
+                "type": "text",
+                "text": "You are an AI assistant that helps people find information."
+            }
+        ]
+    },
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "text",
+                "text": "I am going to Paris, what should I see?"
+            }
+        ]
+    },
+    {
+        "role": "assistant",
+        "content": [
+            {
+                "type": "text",
+                "text": "Paris, the capital of France, is known for its stunning architecture, art museums, historical landmarks, and romantic atmosphere. Here are some of the top attractions to see in Paris:\n\n1. The Eiffel Tower: The iconic Eiffel Tower is one of the most recognizable landmarks in the world and offers breathtaking views of the city.\n2. The Louvre Museum: The Louvre is one of the world's largest and most famous museums, housing an impressive collection of art and artifacts, including the Mona Lisa.\n3. Notre-Dame Cathedral: This beautiful cathedral is one of the most famous landmarks in Paris and is known for its Gothic architecture and stunning stained glass windows.\n\nThese are just a few of the many attractions that Paris has to offer. With so much to see and do, it's no wonder that Paris is one of the most popular tourist destinations in the world."
+            }
+        ]
+    },
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "text",
+                "text": "What is so great about #1?"
+            }
+        ]
+    }
+]
+
+# Include speech result if speech is enabled
+messages = chat_prompt
+
+completion = client.chat.completions.create(
+    model=deployment,
+    messages=messages,
+    max_completion_tokens=800,
+    reasoning_effort="medium",
+    stop=None,
+    stream=False
+)
+
+print(completion.to_json())
