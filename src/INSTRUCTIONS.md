@@ -16,9 +16,7 @@ install dependencies in requirements.txt in a virtual environment
 cd src
 uv python pin 3.12         
 uv venv                  
-uv pip install ansible-core~=2.17.0   
-uv pip install ansible-core~=2.17.0
-uv pip install python-dotenv
+uv pip install -r requirements.txt
 
 .\.venv\Scripts\activate.ps1 #activate venv
 ```
@@ -180,9 +178,7 @@ install dependencies in requirements.txt in a virtual environment
 cd src
 uv python pin 3.12         
 uv venv                  
-uv pip install ansible-core~=2.17.0   
-uv pip install ansible-core~=2.17.0
-uv pip install python-dotenv
+uv pip install -r requirements.txt
 
 .\.venv\Scripts\activate.ps1 #activate venv
 ```
