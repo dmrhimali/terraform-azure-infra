@@ -76,5 +76,8 @@ completion = client.chat.completions.create(
     stream=False
 )
 
-print(completion.to_json())
+data = completion.to_json()
+print(data)
+    
+print(f"answer: {completion.choices[0].message.content}")
     
