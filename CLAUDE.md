@@ -100,7 +100,7 @@ Use `if ($?)` to chain commands — never `&&`.
 - ALWAYS run `tfp` before `tfa`
 
 ## Known Issues / Gotchas
-- `gpt-4o-mini` version must be `2024-07-18` in eastus
+- `gpt-5-nano` version must be `2025-08-07` in eastus
 - `azurerm_cognitive_account_project` requires an `identity` block
 - Budget `subscription_id` needs full path: `/subscriptions/{id}`
 - `custom_subdomain_name` on cognitive account must be globally unique

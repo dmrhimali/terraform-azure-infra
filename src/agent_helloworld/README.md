@@ -33,7 +33,7 @@ cp .env.example .env
 
 - Copy terraform output value for  `ai_foundry_endpoint` and replace `"https://<your-foundry-resource>.services.ai.azure.com/api/projects/<your-project-name>"` in .env
 
-- Copy terraform output value for `gpt4o_mini_deployment_name` and replace `"gpt-4o"` with that and save.
+- Copy terraform output value for `gpt5_nano_deployment_name` and replace `"gpt-5-nano"` with that and save.
 
 ###
 

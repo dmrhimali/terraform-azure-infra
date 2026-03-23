@@ -17,15 +17,15 @@ resource "azurerm_cognitive_account" "ai_foundry" {
   tags = var.tags
 }
 
-# Deploy gpt-4o-mini model
-resource "azurerm_cognitive_deployment" "gpt4o_mini" {
-  name                 = "gpt-4o-mini"
+# Deploy gpt-5-nano model
+resource "azurerm_cognitive_deployment" "gpt5_nano" {
+  name                 = "gpt-5-nano"
   cognitive_account_id = azurerm_cognitive_account.ai_foundry.id
 
   model {
     format  = "OpenAI"
-    name    = "gpt-4o-mini"
-    version = "2024-07-18"
+    name    = "gpt-5-nano"
+    version = "2025-08-07"
   }
 
   sku {

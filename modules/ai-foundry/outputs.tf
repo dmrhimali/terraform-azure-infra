@@ -31,7 +31,7 @@ output "ai_foundry_primary_key" {
   sensitive   = true
 }
 
-output "gpt4o_mini_deployment_name" {
-  description = "GPT-4o-mini model deployment name"
-  value       = azurerm_cognitive_deployment.gpt4o_mini.name
+output "gpt5_nano_deployment_name" {
+  description = "GPT-5-nano model deployment name"
+  value       = azurerm_cognitive_deployment.gpt5_nano.name
 }
