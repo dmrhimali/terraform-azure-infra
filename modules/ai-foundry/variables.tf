@@ -20,15 +20,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-variable "key_vault_purge_protection" {
-  description = "Enable purge protection on Key Vault. Set false for sandbox to allow destroy/recreate. Set true for prod."
-  type        = bool
-  default     = false
-}
-
-variable "key_vault_soft_delete_days" {
-  description = "Soft delete retention days for Key Vault (7-90)"
-  type        = number
-  default     = 7
-}

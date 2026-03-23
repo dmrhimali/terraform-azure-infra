@@ -16,7 +16,7 @@ Terraform-managed Azure AI Foundry infrastructure with Python scripts to interac
 ```
 environments/sandbox/   # Terraform root module (providers, main, vars, outputs)
 modules/
-  ai-foundry/           # AI Hub, AI Project, Storage, Key Vault, AI Services
+  ai-foundry/           # AI Foundry (CognitiveServices) + Project
   resource-group/       # Azure resource group wrapper
   budget/               # Monthly budget alerts
 src/
@@ -96,14 +96,11 @@ Use `if ($?)` to chain commands — never `&&`.
 ## Security Rules — NEVER VIOLATE
 - NEVER hardcode `subscription_id` or `tenant_id` in `.tf` files
 - NEVER commit `.env` or `terraform.tfvars`
-- NEVER set `purge_protection_enabled = true` in sandbox
 - ALWAYS verify `az account show` before terraform commands
 - ALWAYS run `tfp` before `tfa`
 
 ## Known Issues / Gotchas
-- Key Vault soft delete 7 days — run `az keyvault purge` after destroy before recreating
 - `gpt-4o-mini` version must be `2024-07-18` in eastus
-- Storage account names: max 24 chars, no hyphens
-- `azurerm_ai_foundry_project` requires an `identity` block
+- `azurerm_cognitive_account_project` requires an `identity` block
 - Budget `subscription_id` needs full path: `/subscriptions/{id}`
-- `purge_protection_enabled = true` must NEVER be set in sandbox
+- `custom_subdomain_name` on cognitive account must be globally unique
