@@ -17,6 +17,23 @@ resource "azurerm_cognitive_account" "ai_foundry" {
   tags = var.tags
 }
 
+# Deploy gpt-4o-mini model
+resource "azurerm_cognitive_deployment" "gpt4o_mini" {
+  name                 = "gpt-4o-mini"
+  cognitive_account_id = azurerm_cognitive_account.ai_foundry.id
+
+  model {
+    format  = "OpenAI"
+    name    = "gpt-4o-mini"
+    version = "2024-07-18"
+  }
+
+  sku {
+    name     = "Standard"
+    capacity = 1 # 1k TPM — lowest possible
+  }
+}
+
 data "azurerm_client_config" "current" {}
 
 # Grant deploying user "Azure AI Developer" on the Foundry account

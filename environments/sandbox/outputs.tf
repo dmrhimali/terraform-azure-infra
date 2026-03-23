@@ -29,3 +29,8 @@ output "ai_project_name" {
   description = "AI Foundry Project name"
   value       = module.ai_foundry.project_name
 }
+
+output "gpt4o_mini_deployment_name" {
+  description = "GPT-4o-mini model deployment name"
+  value       = module.ai_foundry.gpt4o_mini_deployment_name
+}
