@@ -29,7 +29,7 @@ resource "azurerm_cognitive_deployment" "gpt5_nano" {
   }
 
   sku {
-    name     = "Standard"
+    name     = "GlobalStandard"
     capacity = 1 # 1k TPM — lowest possible
   }
 }
@@ -40,6 +40,13 @@ data "azurerm_client_config" "current" {}
 resource "azurerm_role_assignment" "ai_developer" {
   scope                = azurerm_cognitive_account.ai_foundry.id
   role_definition_name = "Azure AI Developer"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
+
+# Grant deploying user "Cognitive Services User" for Agents data-plane access
+resource "azurerm_role_assignment" "cognitive_services_user" {
+  scope                = azurerm_cognitive_account.ai_foundry.id
+  role_definition_name = "Cognitive Services User"
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
