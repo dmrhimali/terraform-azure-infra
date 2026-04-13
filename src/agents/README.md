@@ -35,10 +35,10 @@ cp .env.example .env
 
 - Copy terraform output value for `gpt5_nano_deployment_name` and replace `"gpt-5-nano"` with that and save.
 
-###
+## Run basic agent (no system prompt)
 
 ```bash
-cd src/agent_helloworld
+cd src/agents
 
 #install dependencies
 uv sync 
@@ -49,7 +49,7 @@ uv run .\agent.py
 
 Now interact commandline:
 
-## Output
+### Output
 ```bash
 uv run .\agent.py
 warning: `VIRTUAL_ENV=C:\Users\RasanjaleeDissanayak\TestProjects\terraform-azure-infra\src\.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
@@ -69,3 +69,6 @@ You: exit
 Exiting the chat.
 (src) PS C:\Users\RasanjaleeDissanayak\TestProjects\terraform-azure-infra\src\agent_helloworld> 
 ```
+
+## Run an agen with instructions/system prompt
+

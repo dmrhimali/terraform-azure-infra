@@ -37,6 +37,7 @@ resource "azurerm_cognitive_deployment" "gpt5_nano" {
 data "azurerm_client_config" "current" {}
 
 # Grant deploying user "Azure AI Developer" on the Foundry account
+# Azure AI Developer gives you broad control — creating deployments, managing projects, reading keys, and calling the data plane. 
 resource "azurerm_role_assignment" "ai_developer" {
   scope                = azurerm_cognitive_account.ai_foundry.id
   role_definition_name = "Azure AI Developer"
@@ -44,6 +45,7 @@ resource "azurerm_role_assignment" "ai_developer" {
 }
 
 # Grant deploying user "Cognitive Services User" for Agents data-plane access
+# Cognitive Services User is narrower — primarily reading keys/endpoints and calling inference APIs. - needed for runnig src/agent_helloworld/agent.py
 resource "azurerm_role_assignment" "cognitive_services_user" {
   scope                = azurerm_cognitive_account.ai_foundry.id
   role_definition_name = "Cognitive Services User"
