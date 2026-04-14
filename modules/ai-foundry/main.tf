@@ -30,7 +30,7 @@ resource "azurerm_cognitive_deployment" "gpt5_nano" {
 
   sku {
     name     = "GlobalStandard"
-    capacity = 1 # 1k TPM — lowest possible
+    capacity = 30 # 30k TPM # 30 requests per min. (lowest possible is 1, i.e. 1K TPM)
   }
 }
 

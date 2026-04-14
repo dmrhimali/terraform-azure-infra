@@ -87,6 +87,8 @@ terraform init
 
 ## Usage
 
+Note: update `budget_start_date` in terraform.tfvars to current month.
+
 ```powershell
 #login to azure
 az logout
