@@ -34,6 +34,23 @@ resource "azurerm_cognitive_deployment" "gpt5_nano" {
   }
 }
 
+# Deploy gpt-5-mini model
+resource "azurerm_cognitive_deployment" "gpt5_mini" {
+  name                 = "gpt-5-mini"
+  cognitive_account_id = azurerm_cognitive_account.ai_foundry.id
+
+  model {
+    format  = "OpenAI"
+    name    = "gpt-5-mini"
+    version = "2025-08-07"
+  }
+
+  sku {
+    name     = "GlobalStandard"
+    capacity = 30 # 30k TPM # 30 requests per min. (lowest possible is 1, i.e. 1K TPM)
+  }
+}
+
 data "azurerm_client_config" "current" {}
 
 # Grant deploying user "Azure AI Developer" on the Foundry account

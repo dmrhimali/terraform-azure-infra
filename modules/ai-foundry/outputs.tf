@@ -35,3 +35,8 @@ output "gpt5_nano_deployment_name" {
   description = "GPT-5-nano model deployment name"
   value       = azurerm_cognitive_deployment.gpt5_nano.name
 }
+
+output "gpt5_mini_deployment_name" {
+  description = "GPT-5-mini model deployment name"
+  value       = azurerm_cognitive_deployment.gpt5_mini.name
+}

@@ -34,3 +34,8 @@ output "gpt5_nano_deployment_name" {
   description = "GPT-5-nano model deployment name"
   value       = module.ai_foundry.gpt5_nano_deployment_name
 }
+
+output "gpt5_mini_deployment_name" {
+  description = "GPT-5-mini model deployment name"
+  value       = module.ai_foundry.gpt5_mini_deployment_name
+}
