@@ -6,5 +6,6 @@
   "[terraform-vars]": {
     "editor.defaultFormatter": "hashicorp.terraform",
     "editor.formatOnSave": true
-  }
+  },
+  "python-envs.defaultEnvManager": "ms-python.python:system"
 }
